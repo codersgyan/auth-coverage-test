@@ -38,6 +38,9 @@ describe("POST /auth/register", () => {
                 .post("/auth/register")
                 .send(userData);
 
+            // eslint-disable-next-line no-console
+            console.log("response", response);
+
             // Assert
             expect(response.statusCode).toBe(201);
         });
