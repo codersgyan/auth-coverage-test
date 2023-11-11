@@ -24,6 +24,7 @@ jobs:
           echo "DB_NAME=${{ secrets.TEST_DB_NAME }}" >> .env.test
           echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env.test
           echo "JWKS_URI=${{ secrets.JWKS_URI }}" >> .env.test
+          cat .env.test
       - name: Test and coverage
         run: npm run test
       - name: SonarCloud Scan
