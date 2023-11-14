@@ -1,29 +1,29 @@
 name: CI/CD
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+    pull_request:
+        branches:
+            - main
+    push:
+        branches:
+            - main
 jobs:
     build-and-test:
-      name: Build the project
-      runs-on: ubuntu-latest
-      if: github.event_name == 'pull_request'
-      steps:
-          - uses: actions/checkout@v3
-          - name: Install dependencies
-            run: npm ci
-          - name: Run eslint
-            run: npm run lint
-          - name: Test and coverage
-            run: npm run test
-          - name: Build-ts
-            run: npm run build
-          - name: SonarCloud Scan
-            uses: SonarSource/sonarcloud-github-action@master
-            env:
+        name: Build the project
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request'
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install dependencies
+              run: npm ci
+            - name: Run eslint
+              run: npm run lint
+            - name: Test and coverage
+              run: npm run test
+            - name: Build-ts
+              run: npm run build
+            - name: SonarCloud Scan
+              uses: SonarSource/sonarcloud-github-action@master
+              env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   DB_HOST: ${{ secrets.TEST_DB_HOST }}
@@ -35,14 +35,13 @@ jobs:
                   JWKS_URI: ${{ secrets.JWKS_URI }}
                   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
     echo:
-      name: Echo
-      runs-on: ubuntu-latest
-      needs: build-and-test
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        name: Echo
+        runs-on: ubuntu-latest
+        needs: build-and-test
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Echo a message
-        run: echo "Hello, World! This is a message from the echo job."
-
+            - name: Echo a message
+              run: echo "Hello, World! This is a message from the echo job."
