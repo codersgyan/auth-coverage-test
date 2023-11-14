@@ -13,8 +13,6 @@ RUN npm install
 # Copy the rest of our app's source code into the container
 COPY . .
 
-# Expose the port the app will run on
 EXPOSE 5501
 
-# The command to run our app
 CMD ["npm", "run", "dev"]
